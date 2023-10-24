@@ -18,6 +18,9 @@ class App extends Component {
     isLoading: false,
     error: null,
     modalId: '',
+    isShowModal: false,
+    largeImageURL: '',
+    imageRequest: '',
   };
 
   handleSubmit = searchQuery => {
@@ -54,8 +57,11 @@ class App extends Component {
     }
   };
 
-  toggleModal = (modalId = '') => {
-    this.setState({ modalId });
+  toggleModal = largeImageURL => {
+    this.setState(prevState => ({
+      isShowModal: !prevState.isShowModal,
+      largeImageURL,
+    }));
   };
 
   changePage = () => {
@@ -63,7 +69,7 @@ class App extends Component {
   };
 
   render() {
-    const { hits, isLoading, totalHits, modalId } = this.state;
+    const { hits, isLoading, totalHits, isShowModal } = this.state;
 
     return (
       <div className={s.App}>
@@ -72,8 +78,12 @@ class App extends Component {
         {Boolean(hits.length) && !isLoading && hits.length !== totalHits && (
           <Button changePage={this.changePage} />
         )}
-        {modalId && (
-          <Modal hits={hits} modalId={modalId} closeModal={this.toggleModal} />
+        {isShowModal && (
+          <Modal
+            largeImageURL={this.state.largeImageURL}
+            alt={this.state.imageRequest}
+            closeModal={this.toggleModal}
+          />
         )}
       </div>
     );
