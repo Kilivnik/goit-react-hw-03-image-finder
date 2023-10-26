@@ -6,6 +6,7 @@ import Searchbar from '../../src/components/Searchbar/Searchbar';
 import ImageGallery from '../../src/components/ImageGallery/ImageGallery';
 import Button from '../../src/components/Button/Button';
 import Modal from '../components/Modal/Modal';
+import Loader from './Loader/Loader';
 
 import { fetchImages } from '../services/api';
 
@@ -75,6 +76,7 @@ class App extends Component {
       <div className={s.App}>
         <Searchbar onSubmit={this.handleSubmit} />
         <ImageGallery hits={hits} openModal={this.toggleModal} />
+        {this.state.isLoading && <Loader />}
         {Boolean(hits.length) && !isLoading && hits.length !== totalHits && (
           <Button changePage={this.changePage} />
         )}
