@@ -25,7 +25,7 @@ class App extends Component {
   };
 
   handleSubmit = searchQuery => {
-    this.setState({ searchQuery, hits: [] });
+    this.setState({ searchQuery, hits: [], page: 1 });
   };
 
   componentDidUpdate(prevProps, prevState) {
